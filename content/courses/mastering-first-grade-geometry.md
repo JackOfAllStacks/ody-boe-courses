@@ -36,7 +36,7 @@ Learning to name these features helps you spot shapes everywhere, from street si
 :::quiz
 id: quiz-1
 chapter: ch-1
-title: Quick Check: Basic Shapes
+title: "Quick Check: Basic Shapes"
 questions:
   - prompt: Which shape has three sides?
     options:
@@ -68,7 +68,7 @@ Try to spot these in the room around you. Finding them in real life makes geomet
 :::study_guide
 id: study-1
 chapter: ch-1
-title: Study Guide: Shape Spotting
+title: "Study Guide: Shape Spotting"
 ---
 - Count the sides of a triangle, square, and rectangle.
 - Trace a circle without lifting your pencil.
@@ -102,7 +102,7 @@ cards:
 :::quiz
 id: quiz-2
 chapter: ch-2
-title: Quick Check: Spatial Words
+title: "Quick Check: Spatial Words"
 questions:
   - prompt: If a ball is under a chair, is it above or below the chair?
     options:

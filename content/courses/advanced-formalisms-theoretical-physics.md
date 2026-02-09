@@ -34,7 +34,7 @@ Think of the action as a script: once it is written, the motion follows.
 :::quiz
 id: quiz-1
 chapter: ch-1
-title: Quick Check: Variational Thinking
+title: "Quick Check: Variational Thinking"
 questions:
   - prompt: The equations of motion come from making the action...
     options:
@@ -66,7 +66,7 @@ This is one of the most powerful organizing ideas in physics.
 :::study_guide
 id: study-1
 chapter: ch-2
-title: Study Guide: Symmetry Map
+title: "Study Guide: Symmetry Map"
 ---
 - Time shifts map to energy conservation.
 - Spatial shifts map to momentum conservation.
@@ -76,7 +76,7 @@ title: Study Guide: Symmetry Map
 :::quiz
 id: quiz-2
 chapter: ch-2
-title: Quick Check: Conserved Quantities
+title: "Quick Check: Conserved Quantities"
 questions:
   - prompt: Which symmetry leads to angular momentum conservation?
     options:

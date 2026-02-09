@@ -4,11 +4,11 @@ import OutlineSidebar from "@/components/course/OutlineSidebar";
 import { getCourseBySlug } from "@/lib/courses";
 
 type CoursePageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
-const CoursePage = ({ params }: CoursePageProps) => {
-  const { slug } = params;
+const CoursePage = async ({ params }: CoursePageProps) => {
+  const { slug } = await params;
   const course = getCourseBySlug(slug);
 
   if (!course) {

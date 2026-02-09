@@ -30,7 +30,7 @@ Strong strategy begins with opportunity framing. Instead of listing features, de
 :::study_guide
 id: study-1
 chapter: ch-1
-title: Study Guide: Opportunity Map
+title: "Study Guide: Opportunity Map"
 ---
 - User tension: the job that is not getting done.
 - Business impact: why it matters now.
@@ -40,7 +40,7 @@ title: Study Guide: Opportunity Map
 :::quiz
 id: quiz-1
 chapter: ch-1
-title: Quick Check: Framing
+title: "Quick Check: Framing"
 questions:
   - prompt: A good opportunity statement includes...
     options:
@@ -74,7 +74,7 @@ cards:
 :::quiz
 id: quiz-2
 chapter: ch-2
-title: Quick Check: Narrative
+title: "Quick Check: Narrative"
 questions:
   - prompt: A product narrative should be...
     options:
@@ -116,7 +116,7 @@ questions:
 
 :::podcast
 id: podcast-1
-title: Audio Brief: Strategy in Motion
+title: "Audio Brief: Strategy in Motion"
 summary: A short, energetic recap of how to lead with narrative and clarity.
 audio_src: /audio/placeholder.mp3
 length: 10:18
