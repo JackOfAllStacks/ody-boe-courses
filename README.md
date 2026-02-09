@@ -2,7 +2,7 @@
 
 ![Odyssey landing page](public/readme-landing-page.png)
 
-**Version:** v0.2.3
+**Version:** v0.2.5
 
 **Live demo:** https://ody-boe-courses.onrender.com/
 
@@ -54,3 +54,4 @@ See `work-done.md`.
   - `package.json`
   - `package-lock.json`
 - Generate concise branch summaries with `npm run summary:branch`.
+- Bootstrap planned worktree branches with `npm run worktrees:setup`.
