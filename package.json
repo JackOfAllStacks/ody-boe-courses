@@ -1,12 +1,15 @@
 {
   "name": "odyssey-app",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "course:new": "node scripts/new-course-draft.mjs",
+    "course:validate": "node scripts/validate-course.mjs",
+    "course:publish": "node scripts/publish-course.mjs",
     "version:bump": "node scripts/bump-version.mjs",
     "hooks:setup": "bash scripts/setup-hooks.sh",
     "summary:branch": "bash scripts/summarize-branch.sh",

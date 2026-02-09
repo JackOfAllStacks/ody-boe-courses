@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { parse as parseYaml } from "yaml";
+import { getPublishedCourseSlugs } from "@/lib/publishedCourses";
 
 export type CourseBlockType =
   | "lesson"
@@ -90,6 +91,25 @@ export type CourseMeta = {
 export type Course = {
   meta: CourseMeta;
   blocks: CourseBlock[];
+};
+
+export type CourseSectionKind = "lesson" | "final_exam" | "podcast";
+
+export type CourseSection = {
+  id: string;
+  title: string;
+  chapter?: string;
+  blockIds: string[];
+  kind: CourseSectionKind;
+};
+
+export type CourseCatalogItem = {
+  slug: string;
+  title: string;
+  summary: string;
+  level: string;
+  estimatedTime: string;
+  heroImage: string;
 };
 
 const coursesDirectory = path.join(process.cwd(), "content/courses");
@@ -334,4 +354,99 @@ export const getAllCourses = (): CourseMeta[] => {
   return getCourseSlugs()
     .map((slug) => getCourseBySlug(slug)?.meta)
     .filter(Boolean) as CourseMeta[];
+};
+
+export const getVisibleCourseSlugs = (): string[] => {
+  const allSlugs = getCourseSlugs();
+  if (process.env.NODE_ENV !== "production") {
+    return allSlugs;
+  }
+
+  const published = new Set(getPublishedCourseSlugs());
+  return allSlugs.filter((slug) => published.has(slug));
+};
+
+export const getVisibleCourses = (): CourseMeta[] => {
+  return getVisibleCourseSlugs()
+    .map((slug) => getCourseBySlug(slug)?.meta)
+    .filter(Boolean) as CourseMeta[];
+};
+
+export const getVisibleCourseCatalog = (): CourseCatalogItem[] => {
+  return getVisibleCourses().map((course) => ({
+    slug: course.slug,
+    title: course.title,
+    summary: course.summary || "A locally authored multi-modal course.",
+    level: course.level,
+    estimatedTime: course.estimated_time,
+    heroImage: course.hero_image || "/placeholders/product-hero.svg",
+  }));
+};
+
+export const isCourseVisible = (slug: string): boolean => {
+  if (process.env.NODE_ENV !== "production") {
+    return true;
+  }
+  return getPublishedCourseSlugs().includes(slug);
+};
+
+export const deriveCourseSections = (blocks: CourseBlock[]): CourseSection[] => {
+  const sections: CourseSection[] = [];
+  let current: CourseSection | null = null;
+
+  for (const block of blocks) {
+    if (block.type === "lesson") {
+      if (current) {
+        sections.push(current);
+      }
+      current = {
+        id: block.id,
+        title: block.title,
+        chapter: block.chapter,
+        kind: "lesson",
+        blockIds: [block.id],
+      };
+      continue;
+    }
+
+    if (block.type === "final_exam" || block.type === "podcast") {
+      if (current) {
+        sections.push(current);
+        current = null;
+      }
+      sections.push({
+        id: block.id,
+        title: block.title,
+        kind: block.type,
+        blockIds: [block.id],
+      });
+      continue;
+    }
+
+    if (!current) {
+      current = {
+        id: block.id,
+        title: block.title,
+        chapter: "chapter" in block ? block.chapter : undefined,
+        kind: "lesson",
+        blockIds: [block.id],
+      };
+      continue;
+    }
+
+    current.blockIds.push(block.id);
+  }
+
+  if (current) {
+    sections.push(current);
+  }
+
+  return sections;
+};
+
+export const getSectionById = (
+  sections: CourseSection[],
+  sectionId: string
+): CourseSection | null => {
+  return sections.find((section) => section.id === sectionId) || null;
 };

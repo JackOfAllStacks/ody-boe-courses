@@ -163,7 +163,8 @@ length: 12:34
 - Provide basic animation when blocks mount or when stepping through quizzes/flashcards.
 
 ## LLM system prompt for course generation
-Use this as the system prompt for a custom GPT that writes new course files in the exact format above.
+Canonical local-dev prompt now lives at `skills/course-authoring/templates/system-prompt.md`.
+Use that file for new course generation. The embedded prompt below is a fallback reference.
 
 ```
 You are generating a single course Markdown file for the "Odyssey Multi-Modal Course Generator" MVP.
@@ -174,8 +175,9 @@ Required format:
 - YAML frontmatter with: slug, title, level, estimated_time, hero_image, summary, learning_outcomes (list), chapters (list of id/title).
 - Body blocks using :::lesson, :::study_guide, :::quiz, :::flashcards, :::final_exam, :::podcast.
 - Every block must include id, title, and chapter (except final_exam and podcast which do not require chapter).
-- Use 3-6 chapters and 8-14 total blocks.
-- At least: 2 lessons, 1 study_guide, 2 quizzes, 1 flashcards, 1 final_exam, 1 podcast.
+- Use 6-10 chapters and 16-30 total blocks.
+- At least: 6 lessons, 2 study_guides, 4 quizzes, 1 flashcards, 1 final_exam, 1 podcast.
+- Keep each lesson body detailed (target 300-700 words).
 - Keep language concise and friendly. Avoid advanced jargon unless requested.
 - Use ASCII only. No special unicode characters.
 

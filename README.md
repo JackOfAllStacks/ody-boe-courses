@@ -2,7 +2,7 @@
 
 ![Odyssey landing page](public/readme-landing-page.png)
 
-**Version:** v0.2.8
+**Version:** v0.2.9
 
 **Live demo:** https://ody-boe-courses.onrender.com/
 
@@ -35,8 +35,29 @@ Courses live in `content/courses/*.md` and are rendered at runtime. Each file in
 
 See examples in `content/courses/`.
 
+### Local authoring workflow
+Use the repo skill at `skills/course-authoring/SKILL.md`.
+
+1. Create a draft scaffold:
+```bash
+npm run course:new -- --slug your-course-slug --title "Your Course Title" --level beginner
+```
+2. Generate/paste course markdown into `content/courses/your-course-slug.md`.
+3. Validate:
+```bash
+npm run course:validate -- your-course-slug
+```
+4. Publish that slug to production allowlist:
+```bash
+npm run course:publish -- your-course-slug
+```
+
+Production only serves allowlisted courses in `content/published-courses.json`.
+Development mode still shows all local courses for fast iteration.
+
 ## Authoring with an external AI
-A system prompt template for generating new Markdown courses lives in `AGENTS.md`. Use it with your preferred external LLM to produce valid course files, then drop them into `content/courses/`.
+A system prompt template for generating new Markdown courses lives in `skills/course-authoring/templates/system-prompt.md`.
+Use it with your preferred external LLM to produce valid course files, then validate and publish with the commands above.
 
 ## Deployment
 Deploy as a web service (not a static export):

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { courseCatalog } from "@/lib/courseCatalog";
+import { getVisibleCourseCatalog } from "@/lib/courses";
 
 type ChooseCoursePageProps = {
   searchParams: Promise<{
@@ -29,6 +29,7 @@ const getAttachmentCount = (raw: string): number => {
 
 const ChooseCoursePage = async ({ searchParams }: ChooseCoursePageProps) => {
   const params = await searchParams;
+  const courseCatalog = getVisibleCourseCatalog();
   const topic = getSingleValue(params.topic, "Multi-modal learning");
   const focus = getSingleValue(params.focus, "Learning");
   const length = getSingleValue(params.length, "Short");
