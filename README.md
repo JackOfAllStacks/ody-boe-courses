@@ -1,19 +1,26 @@
-# Odyssey Multi-Modal Course Generator (MVP)
+# Odyssey Multi-Modal Course Generator
 
-A fast, polished MVP that emulates an Oboe-style learning experience using Next.js and markdown-driven content. The focus is on high-impact UI: prompt-to-course flow, interactive quizzes and flashcards, study guides, a final exam, and an audio-first podcast card.
+![Odyssey landing page](public/readme-landing-page.png)
 
-## Stack
-- Next.js (App Router)
-- React
-- Tailwind CSS
-- Markdown course files with YAML frontmatter
+**Version:** v0.2.0
 
-## What is included
-- Landing page with prompt entry and curated course previews
-- Loading/generation screen with staged progress
-- Course player with outline sidebar and multi-modal blocks
-- Interactive blocks: quizzes, flashcards, study guide, final exam, podcast UI
-- Local markdown content and placeholder hero artwork
+**Live demo:** https://ody-boe-courses.onrender.com/
+
+A fast, polished MVP of the Odyssey AI-assisted multi-modal education course generator. Inspired by oboe.com.
+
+## Project status
+This repo is an MVP focused on UX, layout, and course structure. AI generation is not implemented yet. The current flow uses local Markdown files as the course source of truth.
+
+## Features
+- Prompt-to-course flow with loading animation
+- Course player with outline sidebar
+- Interactive course blocks:
+  - Quizzes (multiple choice)
+  - Flashcards
+  - Study guides
+  - Final exam
+  - Audio podcast card (UI only, no audio generation)
+- Markdown-driven courses with YAML frontmatter
 
 ## Local development
 ```bash
@@ -21,11 +28,18 @@ npm install
 npm run dev
 ```
 
-## Content format
-Courses live in `content/courses/*.md`. Each file includes frontmatter plus block sections. See the examples in `content/courses/`.
+## Content system (Markdown)
+Courses live in `content/courses/*.md` and are rendered at runtime. Each file includes:
+- YAML frontmatter for course metadata and chapters
+- Block sections for lessons, quizzes, flashcards, study guides, final exams, and podcast UI
+
+See examples in `content/courses/`.
+
+## Authoring with an external AI
+A system prompt template for generating new Markdown courses lives in `AGENTS.md`. Use it with your preferred external LLM to produce valid course files, then drop them into `content/courses/`.
 
 ## Deployment
-Deploy as a web service (not static export).
+Deploy as a web service (not a static export):
 - Build: `npm run build`
 - Start: `npm run start`
 
