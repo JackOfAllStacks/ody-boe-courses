@@ -1,8 +1,8 @@
 # Odyssey Multi-Modal Course Generator
 
-![Odyssey landing page](public/readme-landing-page.png)
+![Odyssey landing page](public/readme-landing-page v2.9.png)
 
-**Version:** v0.2.9
+**Version:** v0.2.10
 
 **Live demo:** https://ody-boe-courses.onrender.com/
 
