@@ -1,12 +1,15 @@
 {
   "name": "odyssey-app",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "version:bump": "node scripts/bump-version.mjs",
+    "hooks:setup": "bash scripts/setup-hooks.sh",
+    "summary:branch": "node scripts/summarize-branch.mjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

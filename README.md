@@ -2,7 +2,7 @@
 
 ![Odyssey landing page](public/readme-landing-page.png)
 
-**Version:** v0.2.0
+**Version:** v0.2.1
 
 **Live demo:** https://ody-boe-courses.onrender.com/
 
@@ -45,3 +45,12 @@ Deploy as a web service (not a static export):
 
 ## Work log
 See `work-done.md`.
+
+## Commit automation
+- Run `npm run hooks:setup` once per clone to enable repo hooks.
+- Every commit auto-bumps patch version by `0.0.1` and updates:
+  - `lib/version.ts`
+  - `README.md`
+  - `package.json`
+  - `package-lock.json`
+- Generate concise branch summaries with `npm run summary:branch`.
