@@ -1,20 +1,12 @@
-import dynamic from "next/dynamic";
+"use client";
+
 import type { CourseBlock } from "@/lib/courses";
 import LessonBlock from "@/components/course/LessonBlock";
 import StudyGuideBlock from "@/components/course/StudyGuideBlock";
 import PodcastBlock from "@/components/course/PodcastBlock";
-
-const QuizBlock = dynamic(() => import("@/components/course/QuizBlock"), {
-  ssr: false,
-});
-const FlashcardsBlock = dynamic(
-  () => import("@/components/course/FlashcardsBlock"),
-  { ssr: false }
-);
-const FinalExamBlock = dynamic(
-  () => import("@/components/course/FinalExamBlock"),
-  { ssr: false }
-);
+import QuizBlock from "@/components/course/QuizBlock";
+import FlashcardsBlock from "@/components/course/FlashcardsBlock";
+import FinalExamBlock from "@/components/course/FinalExamBlock";
 
 const BlockRenderer = ({ block }: { block: CourseBlock }) => {
   switch (block.type) {
