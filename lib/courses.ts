@@ -11,19 +11,19 @@ export type CourseBlockType =
   | "final_exam"
   | "podcast";
 
-type BaseBlock = {
+type BaseBlock<T extends CourseBlockType> = {
   id: string;
-  type: CourseBlockType;
+  type: T;
   title: string;
   chapter?: string;
 };
 
-export type LessonBlock = BaseBlock & {
+export type LessonBlock = BaseBlock<"lesson"> & {
   summary?: string;
   body: string;
 };
 
-export type StudyGuideBlock = BaseBlock & {
+export type StudyGuideBlock = BaseBlock<"study_guide"> & {
   body: string;
 };
 
@@ -34,7 +34,7 @@ export type QuizQuestion = {
   explanation?: string;
 };
 
-export type QuizBlock = BaseBlock & {
+export type QuizBlock = BaseBlock<"quiz"> & {
   questions: QuizQuestion[];
 };
 
@@ -43,7 +43,7 @@ export type Flashcard = {
   back: string;
 };
 
-export type FlashcardsBlock = BaseBlock & {
+export type FlashcardsBlock = BaseBlock<"flashcards"> & {
   cards: Flashcard[];
 };
 
