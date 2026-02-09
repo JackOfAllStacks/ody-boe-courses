@@ -1,12 +1,16 @@
 {
   "name": "odyssey-app",
-  "version": "0.1.0",
+  "version": "0.2.5",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "version:bump": "node scripts/bump-version.mjs",
+    "hooks:setup": "bash scripts/setup-hooks.sh",
+    "summary:branch": "bash scripts/summarize-branch.sh",
+    "worktrees:setup": "bash scripts/start-worktree-sequence.sh"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
