@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { courseCatalog } from "@/lib/courseCatalog";
 
@@ -18,11 +19,8 @@ export default function Home() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const targetSlug = courseCatalog[0]?.slug || "mastering-first-grade-geometry";
     const topic = prompt.trim() || "Multi-modal learning";
-    router.push(
-      `/generate?topic=${encodeURIComponent(topic)}&slug=${targetSlug}`
-    );
+    router.push(`/generate?topic=${encodeURIComponent(topic)}`);
   };
 
   return (
@@ -39,9 +37,11 @@ export default function Home() {
       <main className="mx-auto w-full max-w-6xl px-6 pb-20">
         <section className="flex flex-col items-center text-center">
           <div className="flex h-20 w-20 items-center justify-center rounded-full border border-odyssey-gray-light bg-white">
-            <img
+            <Image
               src="/odyssey-boat.png"
               alt="Odyssey"
+              width={72}
+              height={72}
               className="h-18 w-18 object-contain"
             />
           </div>
@@ -105,9 +105,11 @@ export default function Home() {
                 className="group rounded-card border border-odyssey-gray-light/60 bg-white p-5 shadow-[0_20px_50px_rgba(17,17,17,0.08)] transition hover:-translate-y-1"
               >
                 <div className="h-32 overflow-hidden rounded-2xl bg-odyssey-gray-light/60">
-                  <img
+                  <Image
                     src={course.heroImage}
-                    alt=""
+                    alt={course.title}
+                    width={480}
+                    height={256}
                     className="h-full w-full object-cover"
                   />
                 </div>

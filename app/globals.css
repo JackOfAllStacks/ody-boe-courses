@@ -7,6 +7,8 @@
   --tone-orange: #f26b1d;
   --tone-gray: #6f7278;
   --tone-gray-light: #e3e0db;
+  --font-odyssey-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-odyssey-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
 }
 
 @theme inline {
@@ -22,7 +24,7 @@
 body {
   background: var(--tone-cream);
   color: var(--tone-ink);
-  font-family: var(--font-odyssey-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-odyssey-sans);
   letter-spacing: -0.01em;
 }
 

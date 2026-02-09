@@ -16,7 +16,9 @@ const FinalExamBlock = ({ block }: { block: FinalExamBlockType }) => {
     }, 0);
   }, [block.questions, responses]);
 
-  const percentage = Math.round((score / block.questions.length) * 100);
+  const percentage = block.questions.length
+    ? Math.round((score / block.questions.length) * 100)
+    : 0;
 
   return (
     <section className="rounded-card border border-odyssey-orange/50 bg-[linear-gradient(135deg,#ffffff_0%,#fff0e4_100%)] p-6 shadow-[0_20px_50px_rgba(242,107,29,0.12)]">
@@ -26,6 +28,11 @@ const FinalExamBlock = ({ block }: { block: FinalExamBlockType }) => {
       <h2 className="mt-2 font-display text-2xl text-foreground">
         {block.title}
       </h2>
+      {!block.questions.length ? (
+        <p className="mt-4 rounded-2xl border border-odyssey-orange/40 bg-white/80 px-4 py-3 text-sm text-odyssey-gray">
+          This final exam has no valid questions yet.
+        </p>
+      ) : null}
       <div className="mt-6 space-y-6">
         {block.questions.map((question, index) => {
           const selected = responses[index];
@@ -40,12 +47,12 @@ const FinalExamBlock = ({ block }: { block: FinalExamBlockType }) => {
                 {index + 1}. {question.prompt}
               </p>
               <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                {question.options.map((option) => {
+                {question.options.map((option, optionIndex) => {
                   const isSelected = selected === option;
 
                   return (
                     <button
-                      key={option}
+                      key={`${block.id}-${index}-${optionIndex}`}
                       type="button"
                       disabled={submitted}
                       onClick={() =>
@@ -83,6 +90,7 @@ const FinalExamBlock = ({ block }: { block: FinalExamBlockType }) => {
       <div className="mt-6 flex flex-wrap items-center gap-4">
         <button
           type="button"
+          disabled={!block.questions.length}
           onClick={() => setSubmitted(true)}
           className="rounded-pill bg-odyssey-orange px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white shadow-[0_12px_30px_rgba(242,107,29,0.3)]"
         >

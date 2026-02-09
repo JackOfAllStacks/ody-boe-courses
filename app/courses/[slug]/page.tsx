@@ -1,6 +1,7 @@
+import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import BlockRenderer from "@/components/course/BlockRenderer";
-import OutlineSidebar from "@/components/course/OutlineSidebar";
+import CoursePlayerClient from "@/components/course/CoursePlayerClient";
 import { getCourseBySlug } from "@/lib/courses";
 
 type CoursePageProps = {
@@ -15,17 +16,15 @@ const CoursePage = async ({ params }: CoursePageProps) => {
     notFound();
   }
 
-  const activeId = course.blocks[0]?.id;
-
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,#fff7ef_0%,#f8f4ef_55%,#f2eee8_100%)]">
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
-        <a
+        <Link
           href="/"
           className="text-xs uppercase tracking-[0.3em] text-odyssey-gray"
         >
           Odyssey
-        </a>
+        </Link>
         <div className="rounded-pill border border-odyssey-gray-light bg-white/80 px-4 py-2 text-xs uppercase tracking-[0.3em] text-odyssey-gray">
           Course Player
         </div>
@@ -58,9 +57,11 @@ const CoursePage = async ({ params }: CoursePageProps) => {
             </div>
             <div className="overflow-hidden rounded-3xl bg-odyssey-gray-light/60">
               {course.meta.hero_image ? (
-                <img
+                <Image
                   src={course.meta.hero_image}
-                  alt=""
+                  alt={course.meta.title}
+                  width={960}
+                  height={640}
                   className="h-full w-full object-cover"
                 />
               ) : null}
@@ -85,18 +86,10 @@ const CoursePage = async ({ params }: CoursePageProps) => {
           ) : null}
         </section>
 
-        <section className="mt-10 grid gap-8 lg:grid-cols-[0.35fr_0.65fr]">
-          <OutlineSidebar
-            chapters={course.meta.chapters || []}
-            blocks={course.blocks}
-            activeId={activeId}
-          />
-          <div className="space-y-8">
-            {course.blocks.map((block) => (
-              <BlockRenderer key={block.id} block={block} />
-            ))}
-          </div>
-        </section>
+        <CoursePlayerClient
+          chapters={course.meta.chapters || []}
+          blocks={course.blocks}
+        />
       </main>
     </div>
   );

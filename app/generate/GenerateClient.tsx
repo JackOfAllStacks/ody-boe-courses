@@ -7,8 +7,6 @@ const GenerateClient = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const topic = searchParams.get("topic") || "Multi-modal learning";
-  const slug =
-    searchParams.get("slug") || "mastering-first-grade-geometry";
 
   const steps = useMemo(
     () => [
@@ -29,14 +27,14 @@ const GenerateClient = () => {
     }, 900);
 
     const timeout = setTimeout(() => {
-      router.push(`/courses/${slug}`);
+      router.push(`/generate/choose?topic=${encodeURIComponent(topic)}`);
     }, 4800);
 
     return () => {
       clearInterval(interval);
       clearTimeout(timeout);
     };
-  }, [router, slug, steps.length]);
+  }, [router, steps.length, topic]);
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,#fff7ef_0%,#f8f4ef_55%,#f2eee8_100%)]">
@@ -46,7 +44,7 @@ const GenerateClient = () => {
             Generating Course
           </p>
           <h1 className="mt-4 font-display text-4xl text-foreground">
-            "{topic}"
+            &quot;{topic}&quot;
           </h1>
           <p className="mt-4 text-sm text-odyssey-gray">
             Odyssey is building a multi-modal learning path. Hang tight while we

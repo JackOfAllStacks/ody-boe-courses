@@ -14,6 +14,11 @@ const QuizBlock = ({ block }: { block: QuizBlockType }) => {
       <h2 className="mt-2 font-display text-2xl text-foreground">
         {block.title}
       </h2>
+      {!block.questions.length ? (
+        <p className="mt-4 rounded-2xl border border-odyssey-gray-light/60 bg-odyssey-gray-light/30 px-4 py-3 text-sm text-odyssey-gray">
+          This quiz has no valid questions yet.
+        </p>
+      ) : null}
       <div className="mt-6 space-y-6">
         {block.questions.map((question, index) => {
           const selected = responses[index];
@@ -28,13 +33,13 @@ const QuizBlock = ({ block }: { block: QuizBlockType }) => {
                 {index + 1}. {question.prompt}
               </p>
               <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                {question.options.map((option) => {
+                {question.options.map((option, optionIndex) => {
                   const isSelected = selected === option;
                   const optionIsCorrect = option === question.answer;
 
                   return (
                     <button
-                      key={option}
+                      key={`${block.id}-${index}-${optionIndex}`}
                       type="button"
                       onClick={() =>
                         setResponses((prev) => ({
