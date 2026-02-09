@@ -3,10 +3,45 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+type QueryAttachment = {
+  name: string;
+  extension: string;
+  size: number;
+};
+
+const parseAttachments = (raw: string | null): QueryAttachment[] => {
+  if (!raw) {
+    return [];
+  }
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+    return parsed.filter(
+      (item): item is QueryAttachment =>
+        Boolean(
+          item &&
+            typeof item === "object" &&
+            typeof item.name === "string" &&
+            typeof item.extension === "string" &&
+            typeof item.size === "number"
+        )
+    );
+  } catch {
+    return [];
+  }
+};
+
 const GenerateClient = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const topic = searchParams.get("topic") || "Multi-modal learning";
+  const primaryFocus = searchParams.get("focus") || "Learning";
+  const length = searchParams.get("length") || "Short";
+  const complexity = searchParams.get("complexity") || "Beginner";
+  const filesParam = searchParams.get("files");
+  const attachments = useMemo(() => parseAttachments(filesParam), [filesParam]);
 
   const steps = useMemo(
     () => [
@@ -50,6 +85,9 @@ const GenerateClient = () => {
             Odyssey is building a multi-modal learning path. Hang tight while we
             assemble the study guide, interactive checks, and audio moments.
           </p>
+          <p className="mt-3 text-xs uppercase tracking-[0.2em] text-odyssey-gray">
+            Focus: {primaryFocus} | Length: {length} | Complexity: {complexity}
+          </p>
           <div className="mt-8 space-y-3">
             {steps.map((step, index) => (
               <div
@@ -72,6 +110,30 @@ const GenerateClient = () => {
           <p className="text-xs uppercase tracking-[0.3em] text-odyssey-gray">
             Live Draft
           </p>
+          <div className="mt-3 rounded-2xl border border-odyssey-gray-light/70 bg-[#faf8f5] p-3">
+            <p className="text-xs uppercase tracking-[0.2em] text-odyssey-gray">
+              Using your sources
+            </p>
+            {attachments.length ? (
+              <ul className="mt-2 space-y-1">
+                {attachments.map((attachment, index) => (
+                  <li
+                    key={`${attachment.name}-${index}`}
+                    className="flex items-center justify-between gap-2 text-sm text-foreground"
+                  >
+                    <span className="truncate">{attachment.name}</span>
+                    <span className="rounded-md bg-white px-1.5 py-0.5 text-[10px] uppercase tracking-[0.2em] text-odyssey-gray">
+                      {attachment.extension}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-2 text-sm text-odyssey-gray">
+                No uploaded sources. Building from prompt only.
+              </p>
+            )}
+          </div>
           <div className="mt-4 space-y-4">
             {["Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4"].map(
               (item, index) => (

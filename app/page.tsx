@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { courseCatalog } from "@/lib/courseCatalog";
+import { PromptComposer, type PromptSubmitPayload } from "@/components/prompt/PromptComposer";
 
 export default function Home() {
   const router = useRouter();
@@ -17,10 +18,22 @@ export default function Home() {
     []
   );
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const topic = prompt.trim() || "Multi-modal learning";
-    router.push(`/generate?topic=${encodeURIComponent(topic)}`);
+  const handleSubmit = ({ prompt: nextPrompt, attachments, config }: PromptSubmitPayload) => {
+    const topic = nextPrompt.trim() || "Multi-modal learning";
+    const params = new URLSearchParams({
+      topic,
+      focus: config.primaryFocus,
+      length: config.length,
+      complexity: config.complexity,
+      files: JSON.stringify(
+        attachments.map((attachment) => ({
+          name: attachment.name,
+          extension: attachment.extension,
+          size: attachment.size,
+        }))
+      ),
+    });
+    router.push(`/generate?${params.toString()}`);
   };
 
   return (
@@ -49,34 +62,9 @@ export default function Home() {
             Learn about <span className="italic">anything</span>.
           </h1>
           <div className="mt-2 h-5" />
-          <form onSubmit={handleSubmit} className="mt-8 w-full max-w-2xl">
-            <div className="flex items-center gap-3 rounded-pill border border-odyssey-gray-light bg-white px-4 py-3">
-              <button
-                type="button"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-odyssey-gray-light text-lg text-odyssey-gray"
-              >
-                +
-              </button>
-              <input
-                value={prompt}
-                onChange={(event) => setPrompt(event.target.value)}
-                placeholder="I want to learn about..."
-                className="flex-1 bg-transparent text-sm text-foreground outline-none"
-              />
-              <button
-                type="button"
-                className="flex items-center gap-2 rounded-pill border border-odyssey-gray-light px-4 py-2 text-xs uppercase tracking-[0.2em] text-odyssey-gray"
-              >
-                Configure
-              </button>
-              <button
-                type="submit"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-xs uppercase tracking-[0.2em] text-white"
-              >
-                Go
-              </button>
-            </div>
-          </form>
+          <div className="mt-8 w-full max-w-3xl">
+            <PromptComposer prompt={prompt} onPromptChange={setPrompt} onSubmit={handleSubmit} />
+          </div>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             {examplePrompts.map((item) => (
               <button
