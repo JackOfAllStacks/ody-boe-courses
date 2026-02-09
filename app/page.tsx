@@ -126,7 +126,7 @@ export default function Home() {
                   onClick={() => router.push(`/courses/${course.slug}`)}
                   className="mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-odyssey-orange"
                 >
-                  View Course ->
+                  View Course -&gt;
                 </button>
               </article>
             ))}
