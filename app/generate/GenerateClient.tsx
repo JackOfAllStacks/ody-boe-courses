@@ -33,6 +33,16 @@ const parseAttachments = (raw: string | null): QueryAttachment[] => {
   }
 };
 
+const formatBytes = (bytes: number): string => {
+  if (bytes < 1024) {
+    return `${bytes}B`;
+  }
+  if (bytes < 1024 * 1024) {
+    return `${(bytes / 1024).toFixed(1)}KB`;
+  }
+  return `${(bytes / (1024 * 1024)).toFixed(1)}MB`;
+};
+
 const GenerateClient = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -42,6 +52,10 @@ const GenerateClient = () => {
   const complexity = searchParams.get("complexity") || "Beginner";
   const filesParam = searchParams.get("files");
   const attachments = useMemo(() => parseAttachments(filesParam), [filesParam]);
+  const totalAttachmentBytes = useMemo(
+    () => attachments.reduce((sum, attachment) => sum + attachment.size, 0),
+    [attachments]
+  );
 
   const steps = useMemo(
     () => [
@@ -62,14 +76,23 @@ const GenerateClient = () => {
     }, 900);
 
     const timeout = setTimeout(() => {
-      router.push(`/generate/choose?topic=${encodeURIComponent(topic)}`);
+      const nextParams = new URLSearchParams({
+        topic,
+        focus: primaryFocus,
+        length,
+        complexity,
+      });
+      if (filesParam) {
+        nextParams.set("files", filesParam);
+      }
+      router.push(`/generate/choose?${nextParams.toString()}`);
     }, 4800);
 
     return () => {
       clearInterval(interval);
       clearTimeout(timeout);
     };
-  }, [router, steps.length, topic]);
+  }, [complexity, filesParam, length, primaryFocus, router, steps.length, topic]);
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,#fff7ef_0%,#f8f4ef_55%,#f2eee8_100%)]">
@@ -115,7 +138,11 @@ const GenerateClient = () => {
               Using your sources
             </p>
             {attachments.length ? (
-              <ul className="mt-2 space-y-1">
+              <>
+                <p className="mt-2 text-xs uppercase tracking-[0.2em] text-odyssey-gray">
+                  {attachments.length} files | {formatBytes(totalAttachmentBytes)}
+                </p>
+                <ul className="mt-2 space-y-1">
                 {attachments.map((attachment, index) => (
                   <li
                     key={`${attachment.name}-${index}`}
@@ -127,7 +154,8 @@ const GenerateClient = () => {
                     </span>
                   </li>
                 ))}
-              </ul>
+                </ul>
+              </>
             ) : (
               <p className="mt-2 text-sm text-odyssey-gray">
                 No uploaded sources. Building from prompt only.

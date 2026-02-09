@@ -3,15 +3,37 @@ import Link from "next/link";
 import { courseCatalog } from "@/lib/courseCatalog";
 
 type ChooseCoursePageProps = {
-  searchParams: Promise<{ topic?: string | string[] }>;
+  searchParams: Promise<{
+    topic?: string | string[];
+    focus?: string | string[];
+    length?: string | string[];
+    complexity?: string | string[];
+    files?: string | string[];
+  }>;
+};
+
+const getSingleValue = (value: string | string[] | undefined, fallback = "") =>
+  Array.isArray(value) ? value[0] || fallback : value || fallback;
+
+const getAttachmentCount = (raw: string): number => {
+  if (!raw) {
+    return 0;
+  }
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.length : 0;
+  } catch {
+    return 0;
+  }
 };
 
 const ChooseCoursePage = async ({ searchParams }: ChooseCoursePageProps) => {
   const params = await searchParams;
-  const topicParam = params.topic;
-  const topic = Array.isArray(topicParam)
-    ? topicParam[0]
-    : topicParam || "Multi-modal learning";
+  const topic = getSingleValue(params.topic, "Multi-modal learning");
+  const focus = getSingleValue(params.focus, "Learning");
+  const length = getSingleValue(params.length, "Short");
+  const complexity = getSingleValue(params.complexity, "Beginner");
+  const attachmentCount = getAttachmentCount(getSingleValue(params.files, ""));
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,#fff7ef_0%,#f8f4ef_55%,#f2eee8_100%)]">
@@ -26,6 +48,12 @@ const ChooseCoursePage = async ({ searchParams }: ChooseCoursePageProps) => {
           <p className="mt-3 text-sm text-odyssey-gray">
             This MVP uses local, canned course files. Choose one to continue the
             learning experience.
+          </p>
+          <p className="mt-3 text-xs uppercase tracking-[0.2em] text-odyssey-gray">
+            Focus: {focus} | Length: {length} | Complexity: {complexity}
+          </p>
+          <p className="mt-2 text-xs uppercase tracking-[0.2em] text-odyssey-gray">
+            Sources attached: {attachmentCount}
           </p>
         </div>
 

@@ -33,6 +33,11 @@ type PromptComposerProps = {
 
 const MAX_ATTACHMENTS = 3;
 const ACCEPTED_EXTENSIONS = new Set(["pdf", "docx", "md"]);
+const DEFAULT_CONFIG: PromptConfig = {
+  primaryFocus: "Learning",
+  length: "Short",
+  complexity: "Beginner",
+};
 
 const getFileExtension = (fileName: string): string => {
   const parts = fileName.toLowerCase().split(".");
@@ -53,17 +58,17 @@ export const PromptComposer = ({ prompt, onPromptChange, onSubmit }: PromptCompo
   const [statusText, setStatusText] = useState("");
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [isFinePointer, setIsFinePointer] = useState(false);
-  const [config, setConfig] = useState<PromptConfig>({
-    primaryFocus: "Learning",
-    length: "Short",
-    complexity: "Beginner",
-  });
+  const [config, setConfig] = useState<PromptConfig>(DEFAULT_CONFIG);
 
   const canAddMore = attachments.length < MAX_ATTACHMENTS;
   const attachmentSummary = useMemo(
     () => `${attachments.length}/${MAX_ATTACHMENTS} attached`,
     [attachments.length]
   );
+  const isCustomConfig =
+    config.primaryFocus !== DEFAULT_CONFIG.primaryFocus ||
+    config.length !== DEFAULT_CONFIG.length ||
+    config.complexity !== DEFAULT_CONFIG.complexity;
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -222,6 +227,17 @@ export const PromptComposer = ({ prompt, onPromptChange, onSubmit }: PromptCompo
           </button>
           <span className="text-xs uppercase tracking-[0.2em] text-odyssey-gray">{attachmentSummary}</span>
           <div className="ml-auto flex items-center gap-2">
+            {isCustomConfig ? (
+              <button
+                type="button"
+                onClick={() => setConfig(DEFAULT_CONFIG)}
+                className="inline-flex h-9 items-center gap-1 rounded-pill px-3 text-sm text-[#2c75c8] transition hover:bg-[#eef5ff]"
+                aria-label="Reset custom settings"
+              >
+                <span className="text-xs">x</span>
+                <span>Custom</span>
+              </button>
+            ) : null}
             <div
               onMouseEnter={openConfigMenu}
               onMouseLeave={scheduleCloseConfigMenu}

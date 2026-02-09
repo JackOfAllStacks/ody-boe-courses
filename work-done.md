@@ -15,3 +15,25 @@
   - Tightened block typing for proper discriminated unions.
   - Wrapped `useSearchParams()` in Suspense and split generate page into client component.
 - Clarified Render deploy config: use web service, no publish directory, `npm run build` + `npm run start`.
+- Improved reliability and UX flow:
+  - Replaced risky navigation/image patterns with `Link` and `Image` where needed.
+  - Removed remote Google font dependency to make builds deterministic in restricted environments.
+  - Added `Example Resources/**` to ESLint ignores to avoid noise from reference assets.
+- Upgraded generation flow and course player:
+  - Changed prompt flow to landing -> loading -> `/generate/choose` course selection page.
+  - Added `CoursePlayerClient` with active block tracking via intersection observer.
+  - Updated outline sidebar to anchor to blocks and include unchaptered wrap-up items.
+- Hardened markdown/content rendering:
+  - Added defensive parsing/normalization for questions, cards, and metadata.
+  - Added duplicate block id warnings and graceful fallbacks for empty quiz/flashcards/final exam blocks.
+- Added release/versioning workflow:
+  - Added commit-time version bump automation (`+0.0.1`) via `.githooks/pre-commit`.
+  - Added `lib/version.ts` as app version source and rendered version badge at bottom-right on every page.
+  - Synced version updates across `README.md`, `package.json`, and `package-lock.json`.
+- Added branch/worktree operations tooling:
+  - Added concise branch summary generator and docs in `docs/branch-summaries/`.
+  - Added worktree bootstrap script for sequenced feature branches.
+  - Executed integration merge flow and pushed `main` plus supporting branches to remote.
+  - Tagged release `v0.2.5` on commit `8d548db`.
+- Completed cleanup:
+  - Pruned temporary local worktrees, leaving only the primary repo worktree on `main`.

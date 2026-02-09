@@ -11,9 +11,9 @@ export default function Home() {
   const [prompt, setPrompt] = useState("");
   const examplePrompts = useMemo(
     () => [
-      "Designing a bedtime routine for kids",
-      "Bite-sized quantum mechanics",
-      "Product strategy for a new app idea",
+      "AI for education technology: adaptive tutoring and outcomes",
+      "Business project development from idea to launch plan",
+      "Agentic coding in 2026: workflows, risks, and best practices",
     ],
     []
   );
@@ -61,7 +61,10 @@ export default function Home() {
           <h1 className="mt-6 font-display text-2xl text-foreground sm:text-3xl">
             Learn about <span className="italic">anything</span>.
           </h1>
-          <div className="mt-2 h-5" />
+          <p className="mt-3 max-w-xl text-sm text-odyssey-gray">
+            Instantly generate textbooks, study guides, podcasts, quizzes, and
+            more from a single prompt.
+          </p>
           <div className="mt-8 w-full max-w-3xl">
             <PromptComposer prompt={prompt} onPromptChange={setPrompt} onSubmit={handleSubmit} />
           </div>
