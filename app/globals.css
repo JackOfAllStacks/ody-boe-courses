@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+:root {
+  --tone-white: #ffffff;
+  --tone-cream: #f8f4ef;
+  --tone-ink: #111111;
+  --tone-orange: #f26b1d;
+  --tone-gray: #6f7278;
+  --tone-gray-light: #e3e0db;
+}
+
+@theme inline {
+  --color-background: var(--tone-cream);
+  --color-foreground: var(--tone-ink);
+  --color-odyssey-orange: var(--tone-orange);
+  --color-odyssey-gray: var(--tone-gray);
+  --color-odyssey-gray-light: var(--tone-gray-light);
+  --font-sans: var(--font-odyssey-sans);
+  --font-display: var(--font-odyssey-display);
+}
+
+body {
+  background: var(--tone-cream);
+  color: var(--tone-ink);
+  font-family: var(--font-odyssey-sans), system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+* {
+  box-sizing: border-box;
+}
