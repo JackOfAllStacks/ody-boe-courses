@@ -2,7 +2,7 @@
 
 ![Odyssey landing page](public/readme-landing-page.png)
 
-**Version:** v0.2.2
+**Version:** v0.2.3
 
 **Live demo:** https://ody-boe-courses.onrender.com/
 
