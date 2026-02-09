@@ -26,77 +26,77 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,#fff7ef_0%,#f8f4ef_55%,#f2eee8_100%)]">
+    <div className="min-h-screen bg-[#f8f4ef]">
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
-        <div className="text-sm uppercase tracking-[0.3em] text-odyssey-gray">
+        <div className="text-xs uppercase tracking-[0.3em] text-odyssey-gray">
           Odyssey
         </div>
-        <div className="rounded-pill border border-odyssey-gray-light bg-white/80 px-4 py-2 text-xs uppercase tracking-[0.3em] text-odyssey-gray">
+        <div className="rounded-pill border border-odyssey-gray-light bg-white/70 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-odyssey-gray">
           Multi-Modal Course Generator
         </div>
       </header>
 
       <main className="mx-auto w-full max-w-6xl px-6 pb-20">
-        <section className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-odyssey-orange">
-              Fast MVP Demo
-            </p>
-            <h1 className="mt-4 font-display text-4xl leading-tight text-foreground sm:text-5xl">
-              Build a multi-modal course in minutes, not months.
-            </h1>
-            <p className="mt-4 max-w-xl text-base leading-7 text-odyssey-gray">
-              Odyssey transforms a simple prompt into study guides, quizzes,
-              flashcards, and audio-first learning moments. This MVP focuses on
-              clarity, momentum, and a polished learning flow.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              {examplePrompts.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  onClick={() => setPrompt(item)}
-                  className="rounded-pill border border-odyssey-gray-light bg-white px-4 py-2 text-xs uppercase tracking-[0.2em] text-odyssey-gray transition hover:border-odyssey-orange"
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
+        <section className="flex flex-col items-center text-center">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full border border-odyssey-gray-light bg-white">
+            <img
+              src="/odyssey-boat.png"
+              alt="Odyssey"
+              className="h-18 w-18 object-contain"
+            />
           </div>
-
-          <div className="rounded-card border border-odyssey-orange/40 bg-white p-6 shadow-[0_30px_70px_rgba(242,107,29,0.18)]">
-            <p className="text-xs uppercase tracking-[0.3em] text-odyssey-orange">
-              Generate Course
-            </p>
-            <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-              <label className="text-sm font-semibold text-foreground">
-                What do you want to learn?
-              </label>
-              <textarea
+          <h1 className="mt-6 font-display text-2xl text-foreground sm:text-3xl">
+            Learn about <span className="italic">anything</span>.
+          </h1>
+          <div className="mt-2 h-5" />
+          <form onSubmit={handleSubmit} className="mt-8 w-full max-w-2xl">
+            <div className="flex items-center gap-3 rounded-pill border border-odyssey-gray-light bg-white px-4 py-3">
+              <button
+                type="button"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-odyssey-gray-light text-lg text-odyssey-gray"
+              >
+                +
+              </button>
+              <input
                 value={prompt}
                 onChange={(event) => setPrompt(event.target.value)}
-                placeholder="Try: Intro to design systems for startups"
-                rows={4}
-                className="w-full rounded-2xl border border-odyssey-gray-light bg-odyssey-gray-light/30 px-4 py-3 text-sm text-foreground outline-none transition focus:border-odyssey-orange"
+                placeholder="I want to learn about..."
+                className="flex-1 bg-transparent text-sm text-foreground outline-none"
               />
               <button
-                type="submit"
-                className="w-full rounded-pill bg-odyssey-orange px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white shadow-[0_12px_30px_rgba(242,107,29,0.3)]"
+                type="button"
+                className="flex items-center gap-2 rounded-pill border border-odyssey-gray-light px-4 py-2 text-xs uppercase tracking-[0.2em] text-odyssey-gray"
               >
-                Generate Course
+                Configure
               </button>
-            </form>
+              <button
+                type="submit"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-xs uppercase tracking-[0.2em] text-white"
+              >
+                Go
+              </button>
+            </div>
+          </form>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            {examplePrompts.map((item) => (
+              <button
+                key={item}
+                type="button"
+                onClick={() => setPrompt(item)}
+                className="rounded-pill border border-odyssey-gray-light bg-white px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-odyssey-gray transition hover:border-odyssey-orange"
+              >
+                {item}
+              </button>
+            ))}
           </div>
         </section>
 
         <section className="mt-16">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="font-display text-2xl text-foreground">
-              See some of Odyssey's offered courses below
-            </h2>
-            <div className="text-xs uppercase tracking-[0.3em] text-odyssey-gray">
-              Curated MVP Set
-            </div>
+          <div className="flex flex-col items-center gap-2 text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-odyssey-gray">
+              Other users recently made these courses
+            </p>
+            <div className="text-2xl text-odyssey-gray">↓</div>
           </div>
           <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {courseCatalog.map((course) => (

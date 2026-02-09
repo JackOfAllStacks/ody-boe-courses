@@ -1,0 +1,17 @@
+- Drafted `AGENTS.md` with MVP scope, UI requirements, and markdown course spec plus LLM prompt format.
+- Initialized git repo and added example resources.
+- Scaffolded Next.js + Tailwind app; set Odyssey theme variables and fonts.
+- Built landing page with prompt box, curated course cards, and placeholder art.
+- Added generate flow with loading animation and redirect to course page.
+- Implemented markdown course loader and block parser.
+- Built course player with outline sidebar and block renderer.
+- Implemented interactive blocks: lessons, study guide, quizzes, flashcards, final exam, podcast UI.
+- Added three sample markdown courses and SVG placeholder heroes.
+- Fixed build/runtime issues:
+  - Escaped `>` in JSX on landing page.
+  - Moved block renderer to client component to avoid `next/dynamic` SSR restriction.
+  - Awaited async `params` in dynamic route for Next.js 16.
+  - Quoted YAML titles with colons.
+  - Tightened block typing for proper discriminated unions.
+  - Wrapped `useSearchParams()` in Suspense and split generate page into client component.
+- Clarified Render deploy config: use web service, no publish directory, `npm run build` + `npm run start`.
